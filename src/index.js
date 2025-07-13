@@ -1,17 +1,17 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';   // ✅ Correct import for React 18
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
-import './index.css';  // ✅ Path should match your CSS file
+import './index.css'; // this applies Tailwind globally
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import { CartProvider } from "./context/CartContext"; // ✅ import this
 
-
-const container = document.getElementById('root');
-const root = createRoot(container);  // ✅ Create root for React 18
-
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <CartProvider> {/* ✅ Wrap here */}
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </CartProvider>
   </React.StrictMode>
 );

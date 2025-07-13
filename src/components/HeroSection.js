@@ -1,18 +1,27 @@
-const HeroSection = () => {
-    return (
-        <section className="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 text-white py-20">
-            <div className="container mx-auto text-center">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                    Welcome to <span className="text-yellow-400">Amar Book Centre</span>
-                </h1>
-                <p className="mb-8 text-lg">Your destination for Competitive Exam Books.</p>
-                <button className="bg-yellow-400 text-black px-6 py-3 rounded-lg shadow-md hover:bg-yellow-500 transition">
-                    Shop Now
-                </button>
-            </div>
-        </section>
+<section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-32 overflow-hidden">
+  <div className="container mx-auto px-4 text-center animate-fadeSlideDown">
+    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+      Welcome to <span className="text-yellow-400">Amar Book Centre</span>
+    </h1>
+    <p className="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-white">
+      Find the best study materials for MPSC, UPSC, Banking, Railway, and more.
+    </p>
 
-    );
-};
+    {/* Marathi Slogan */}
+    <p className="italic text-yellow-200 text-base md:text-lg mb-8">
+      "पुस्तके म्हणजे ज्ञानाचे भांडार, यशाचा खरा आधार!"
+    </p>
 
-export default HeroSection;
+    {/* CTA Buttons */}
+    <div className="flex justify-center space-x-4">
+      <a href="#categories" className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-300 transition duration-300">
+        Explore Books
+      </a>
+      <a href="/featured" className="border border-yellow-400 text-yellow-400 font-semibold px-6 py-3 rounded hover:bg-yellow-400 hover:text-black transition duration-300">
+        Shop Now
+      </a>
+    </div>
+  </div>
+</section>
+
+

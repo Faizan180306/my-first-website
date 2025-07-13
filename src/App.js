@@ -1,26 +1,30 @@
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Categories from './pages/Categories';
-import FeaturedBooks from './pages/FeaturedBooks';
-import Cart from './pages/Cart';
-import Contact from './pages/Contact';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Cart from "./pages/Cart";
+import FeaturedBooks from "./pages/FeaturedBooks";
 
 function App() {
   return (
-    <div>
+    <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/categories" element={<Categories />} />
-        <Route path="/featured" element={<FeaturedBooks />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/featuredbooks" element={<FeaturedBooks />} />
+        {/* Add other routes */}
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 }
 
 export default App;
+
+

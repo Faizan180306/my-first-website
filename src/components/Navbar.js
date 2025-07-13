@@ -1,66 +1,130 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { FiMenu, FiX, FiShoppingCart, FiSearch } from "react-icons/fi";
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const menuRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const menuRef = useRef(null);
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => {
+    setIsOpen(false);
+    setDropdownOpen(false);
+  };
+
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) closeMenu();
     };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    const closeMenu = () => {
-        setIsOpen(false);
-    };
+  return (
+    <nav
+      className="bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white shadow-md fixed w-full z-50"
+      ref={menuRef}
+    >
+      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        {/* Logo */}
+        <div className="flex items-center space-x-2">
+          <img src="/images/amar-book-logo.png" alt="Logo" className="h-12" />
+          <span className="text-xl font-bold tracking-wide">Amar Book Centre</span>
+        </div>
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                closeMenu();
-            }
-        };
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-6">
+          {["Home", "FeaturedBooks", "Contact"].map((item, idx) => (
+            <Link
+              key={idx}
+              to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+              className="relative group font-medium hover:text-yellow-400 transition"
+            >
+              {item}
+              <span className="absolute w-0 h-0.5 bg-yellow-400 left-0 bottom-0 group-hover:w-full transition-all duration-300"></span>
+            </Link>
+          ))}
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
+          {/* Categories Dropdown */}
+          <div className="relative group">
+            <button onClick={toggleDropdown} className="font-medium hover:text-yellow-400 transition">
+              Categories ▾
+            </button>
+            {dropdownOpen && (
+              <div className="absolute mt-2 bg-white text-black rounded-md shadow-lg w-48 animate-fadeIn">
+                {["MPSC", "UPSC", "Novels", "Children"].map((cat, idx) => (
+                  <Link
+                    key={idx}
+                    to={`/categories/${cat.toLowerCase()}`}
+                    className="block px-4 py-2 hover:bg-gray-200"
+                    onClick={closeMenu}
+                  >
+                    {cat} Books
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
 
-    return (
-        <nav className="bg-gradient-to-r from-black via-blue-900 to-blue-700 shadow-lg fixed left-0 w-full z-50 px-2" ref={menuRef}>
-            <div className="container mx-auto px-4 sm:px-8">
-                <div className="flex justify-between items-center py-2">
-                    <div className='flex items-center'>
-                        <img src='/images/amar-book-logo.png' className='h-16' alt="Amar Book Centre Logo" />
-                        <span className="text-white text-xl font-bold ml-2">Amar Book Centre</span>
-                    </div>
-                    <div className="hidden text-white text-lg md:flex space-x-8">
-                        <Link to="/" className="font-bold hover:text-gray-300">Home</Link>
-                        <Link to="/categories" className="font-bold hover:text-gray-300">Categories</Link>
-                        <Link to="/featured" className="font-bold hover:text-gray-300">Featured Books</Link>
-                        <Link to="/cart" className="font-bold hover:text-gray-300">Cart</Link>
-                        <Link to="/contact" className="font-bold hover:text-gray-300">Contact</Link>
-                    </div>
-                    <div className="md:hidden">
-                        <button onClick={toggleMenu} className="hover:text-gray-300 focus:outline-none">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                {isOpen && (
-                    <div className="md:hidden text-white">
-                        <Link to="/" className="font-semibold block px-4 py-1 hover:text-gray-300" onClick={closeMenu}>Home</Link>
-                        <Link to="/categories" className="font-semibold block px-4 py-1 hover:text-gray-300" onClick={closeMenu}>Categories</Link>
-                        <Link to="/featured" className="font-semibold block px-4 py-1 hover:text-gray-300" onClick={closeMenu}>Featured Books</Link>
-                        <Link to="/cart" className="font-semibold block px-4 py-1 hover:text-gray-300" onClick={closeMenu}>Cart</Link>
-                        <Link to="/contact" className="font-semibold block px-4 py-1 hover:text-gray-300" onClick={closeMenu}>Contact</Link>
-                    </div>
-                )}
+          {/* Search */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="pl-8 pr-3 py-1 rounded bg-white text-black focus:outline-none"
+            />
+            <FiSearch className="absolute top-1.5 left-2 text-gray-500" />
+          </div>
+
+          {/* Cart */}
+          <Link to="/cart" className="relative">
+            <FiShoppingCart className="text-xl" />
+            <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+              3
+            </span>
+          </Link>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button onClick={toggleMenu}>
+            {isOpen ? <FiX className="text-2xl" /> : <FiMenu className="text-2xl" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="bg-indigo-950 md:hidden flex flex-col items-center text-white space-y-3 pb-4 animate-slideDown">
+          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/featuredbooks" onClick={closeMenu}>FeaturedBooks</Link>
+          <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          <Link to="/cart" onClick={closeMenu}>Cart</Link>
+          <button onClick={toggleDropdown}>Categories ▾</button>
+          {dropdownOpen && (
+            <div className="flex flex-col text-black w-40 bg-white rounded shadow-md">
+              {["MPSC", "UPSC", "Novels", "Children"].map((cat, idx) => (
+                <Link
+                  key={idx}
+                  to={`/categories/${cat.toLowerCase()}`}
+                  className="px-4 py-2 hover:bg-gray-200"
+                  onClick={closeMenu}
+                >
+                  {cat} Books
+                </Link>
+              ))}
             </div>
-        </nav>
-    );
+          )}
+        </div>
+      )}
+    </nav>
+  );
 };
 
 export default Navbar;
+
+
+
