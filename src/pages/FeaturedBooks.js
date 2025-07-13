@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 
 const featuredBooks = [
@@ -12,6 +12,7 @@ const featuredBooks = [
     image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=300&h=400&fit=crop",
     category: "MPSC",
     bestseller: true,
+    description: "A complete guide for MPSC Rajyaseva Mains by Dr. Prakash Patil."
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ const featuredBooks = [
     image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=300&h=400&fit=crop",
     category: "UPSC",
     bestseller: true,
+    description: "UPSC prelims full syllabus in one book by Arihant."
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ const featuredBooks = [
     image: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=300&h=400&fit=crop",
     category: "Banking",
     bestseller: false,
+    description: "Covers all topics for banking awareness and current affairs."
   },
   {
     id: 4,
@@ -45,11 +48,13 @@ const featuredBooks = [
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=400&fit=crop",
     category: "Railway",
     bestseller: false,
+    description: "Best study material for Railway Group D exam preparation."
   },
 ];
 
 const FeaturedBooks = () => {
   const { addToCart } = useCart();
+  const [selectedBook, setSelectedBook] = useState(null);
 
   const handleAddToCart = (book, e) => {
     addToCart(book);
@@ -108,12 +113,20 @@ const FeaturedBooks = () => {
                   </div>
                 </div>
 
-                <button
-                  onClick={(e) => handleAddToCart(book, e)}
-                  className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition-colors duration-300"
-                >
-                  Add to Cart
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={(e) => handleAddToCart(book, e)}
+                    className="flex-1 bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition-colors duration-300"
+                  >
+                    Add to Cart
+                  </button>
+                  <button
+                    onClick={() => setSelectedBook(book)}
+                    className="flex-1 border border-blue-600 text-blue-600 font-semibold py-2 rounded hover:bg-blue-50 transition"
+                  >
+                    Quick View
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -125,8 +138,45 @@ const FeaturedBooks = () => {
           </button>
         </div>
       </div>
+
+      {/* Quick View Modal */}
+      {selectedBook && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg max-w-xl w-full p-6 relative animate-fadeIn">
+            <button
+              onClick={() => setSelectedBook(null)}
+              className="absolute top-2 right-2 text-gray-500 text-2xl hover:text-red-600"
+            >
+              &times;
+            </button>
+            <div className="flex flex-col md:flex-row gap-4">
+              <img
+                src={selectedBook.image}
+                alt={selectedBook.title}
+                className="w-full md:w-1/2 h-60 object-cover rounded"
+              />
+              <div>
+                <h3 className="text-xl font-bold mb-2">{selectedBook.title}</h3>
+                <p className="text-gray-600 text-sm mb-2">by {selectedBook.author}</p>
+                <p className="text-gray-700 mb-3">{selectedBook.description}</p>
+                <div className="text-green-600 text-lg font-bold mb-4">₹{selectedBook.price}</div>
+                <button
+                  onClick={() => {
+                    addToCart(selectedBook);
+                    setSelectedBook(null);
+                  }}
+                  className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
 
 export default FeaturedBooks;
+
