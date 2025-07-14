@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"; 
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 
@@ -63,7 +64,7 @@ const FeaturedBooks = () => {
   };
 
   return (
-    <section className="py-16 bg-white">
+    <section id="featured" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -133,9 +134,12 @@ const FeaturedBooks = () => {
         </div>
 
         <div className="text-center mt-12">
-          <button className="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold px-6 py-3 rounded transition duration-300">
+          <Link
+            to="/allbooks"
+            className="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold px-6 py-3 rounded transition duration-300"
+          >
             View All Books
-          </button>
+          </Link>
         </div>
       </div>
 

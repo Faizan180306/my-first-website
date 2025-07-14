@@ -1,17 +1,17 @@
-import './index.css'; // this applies Tailwind globally
+import './index.css';
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import { CartProvider } from "./context/CartContext"; // ✅ import this
+import { CartProvider } from "./context/CartContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CartProvider> {/* ✅ Wrap here */}
-      <BrowserRouter>
+    <BrowserRouter>
+      <CartProvider>
         <App />
-      </BrowserRouter>
-    </CartProvider>
+      </CartProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

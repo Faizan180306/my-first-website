@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Categories from "./Categories";
 import FeaturedBooks from "./FeaturedBooks";
 
@@ -27,12 +28,13 @@ const Home = () => {
             >
               Explore Books
             </a>
-            <a
-              href="/featured"
+            <Link
+              to="/featuredbooks"
               className="border border-yellow-400 text-yellow-400 font-semibold px-6 py-3 rounded hover:bg-yellow-400 hover:text-black transition duration-300"
             >
               Shop Now
-            </a>
+            </Link>
+
           </div>
         </div>
       </section>
