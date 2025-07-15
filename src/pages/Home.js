@@ -1,27 +1,79 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Categories from "./Categories";
 import FeaturedBooks from "./FeaturedBooks";
+import BookSlider from "../components/BookSlider";
+
+
+
 
 const Home = () => {
+  const bestsellers = [
+      "MPSC Rajyaseva Guide",
+      "UPSC Civil Services Prelims 2024",
+      "Banking Awareness 2024",
+      "Railway Group D Practice Set"
+      ];
   return (
     <div>
       {/* ✨ Enhanced Hero Section with Marathi slogan and animation */}
+      
+
       <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-32 overflow-hidden">
-        <div className="container mx-auto px-4 text-center animate-fadeSlideDown">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+        {/* Floating background circles */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-purple-500 rounded-full opacity-30 blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-10 w-40 h-40 bg-yellow-400 rounded-full opacity-20 blur-2xl animate-ping"></div>
+
+        <div className="container mx-auto px-4 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight"
+          >
             Welcome to <span className="text-yellow-400">Amar Book Centre</span>
-          </h1>
-          <p className="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-white">
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-white"
+          >
             Find the best study materials for MPSC, UPSC, Banking, Railway, and more.
-          </p>
+          </motion.p>
 
           {/* Marathi Slogan */}
-          <p className="italic text-yellow-200 text-base md:text-lg mb-8">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="italic text-yellow-200 text-base md:text-lg mb-8"
+          >
             "पुस्तके म्हणजे ज्ञानाचे भांडार, यशाचा खरा आधार!"
-          </p>
+          </motion.p>
+
+          {/* Animated Bestseller Slider */}
+          <motion.div
+            className="text-sm md:text-base text-yellow-300 font-mono mb-6"
+            initial={{ x: "100%" }}
+            animate={{ x: "-100%" }}
+            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          >
+            <span className="inline-block whitespace-nowrap">
+              {bestsellers.map((item, i) => (
+                <span key={i} className="mx-6">🔥 {item}</span>
+              ))}
+            </span>
+          </motion.div>
 
           {/* CTA Buttons */}
-          <div className="flex justify-center space-x-4">
+          <motion.div
+            className="flex justify-center space-x-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+          >
             <a
               href="#categories"
               className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-300 transition duration-300"
@@ -34,10 +86,14 @@ const Home = () => {
             >
               Shop Now
             </Link>
-
-          </div>
+          </motion.div>
         </div>
       </section>
+      <BookSlider />
+
+      
+
+
 
 
 
