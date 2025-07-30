@@ -1,6 +1,9 @@
+import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { FiMenu, FiX, FiShoppingCart, FiSearch } from "react-icons/fi";
+import { FiMenu, FiX, FiShoppingCart, FiSearch, FiUser } from "react-icons/fi";
+
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +26,8 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const [open, setOpen] = useState(false);
+
   return (
     <nav
       className="bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white shadow-md fixed w-full z-50"
@@ -30,10 +35,14 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <img src="/images/amar-book-logo.png" alt="Logo" className="h-12" />
-          <span className="text-xl font-bold tracking-wide">Amar Book Centre</span>
-        </div>
+        <Link to="/" className="flex items-center space-x-2">
+          <img
+            src="/logo.png"
+            alt="Amar Book Centre Logo"
+            className="h-10 w-auto object-contain"
+          />
+          <span className="text-xl font-bold text-white">Amar Book Centre</span>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
@@ -53,30 +62,75 @@ const Navbar = () => {
             <button onClick={toggleDropdown} className="font-medium hover:text-yellow-400 transition">
               Categories ▾
             </button>
-            {dropdownOpen && (
-              <div className="absolute mt-2 bg-white text-black rounded-md shadow-lg w-48 animate-fadeIn">
-                {["MPSC", "UPSC", "Novels", "Children"].map((cat, idx) => (
-                  <Link
-                    key={idx}
-                    to={`/categories/${cat.toLowerCase()}`}
-                    className="block px-4 py-2 hover:bg-gray-200"
-                    onClick={closeMenu}
-                  >
-                    {cat} Books
-                  </Link>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute mt-2 bg-white text-black rounded-md shadow-lg w-48 z-50"
+                >
+                  {["MPSC", "UPSC", "Novels", "Children"].map((cat, idx) => (
+                    <Link
+                      key={idx}
+                      to={`/categories/${cat.toLowerCase()}`}
+                      className="block px-4 py-2 hover:bg-gray-200"
+                      onClick={closeMenu}
+                    >
+                      {cat} Books
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
+
+          {/* Ask for Book Button */}
+          <Link
+            to="/ask-book"
+            className="px-4 py-1.5 bg-yellow-400 text-black rounded hover:bg-yellow-500 transition font-semibold"
+          >
+            Ask for Book
+          </Link>
+
+          {/* Profile Dropdown */}
+          <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="text-white hover:text-yellow-400 transition duration-200"
+      >
+        <FiUser className="text-2xl" />
+      </button>
+
+      {open && (
+        <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg z-50">
+          <Link
+            to="/auth"
+            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition"
+            onClick={() => setOpen(false)}
+          >
+            Login
+          </Link>
+          <Link
+            to="/auth"
+            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition"
+            onClick={() => setOpen(false)}
+          >
+            Register
+          </Link>
+        </div>
+      )}
+    </div>
 
           {/* Search */}
           <div className="relative">
             <input
               type="text"
-              placeholder="Search..."
-              className="pl-8 pr-3 py-1 rounded bg-white text-black focus:outline-none"
+              placeholder="Search books..."
+              className="pl-8 pr-3 py-1 rounded bg-white text-black focus:outline-none w-48"
             />
-            <FiSearch className="absolute top-1.5 left-2 text-gray-500" />
+            <FiSearch className="absolute top-2 left-2 text-gray-500" />
           </div>
 
           {/* Cart */}
@@ -102,22 +156,35 @@ const Navbar = () => {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <Link to="/featuredbooks" onClick={closeMenu}>FeaturedBooks</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          <Link to="/ask-book" onClick={closeMenu}>Ask for Book</Link>
+          <Link to="/profile" onClick={closeMenu}>My Profile</Link>
+          <Link to="/orders" onClick={closeMenu}>My Orders</Link>
+          <Link to="/logout" onClick={closeMenu}>Logout</Link>
           <Link to="/cart" onClick={closeMenu}>Cart</Link>
           <button onClick={toggleDropdown}>Categories ▾</button>
-          {dropdownOpen && (
-            <div className="flex flex-col text-black w-40 bg-white rounded shadow-md">
-              {["MPSC", "UPSC", "Novels", "Children"].map((cat, idx) => (
-                <Link
-                  key={idx}
-                  to={`/categories/${cat.toLowerCase()}`}
-                  className="px-4 py-2 hover:bg-gray-200"
-                  onClick={closeMenu}
-                >
-                  {cat} Books
-                </Link>
-              ))}
-            </div>
-          )}
+
+          <AnimatePresence>
+            {dropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.2 }}
+                className="flex flex-col text-black w-40 bg-white rounded shadow-md z-50"
+              >
+                {["MPSC", "UPSC", "Novels", "Children"].map((cat, idx) => (
+                  <Link
+                    key={idx}
+                    to={`/categories/${cat.toLowerCase()}`}
+                    className="px-4 py-2 hover:bg-gray-200"
+                    onClick={closeMenu}
+                  >
+                    {cat} Books
+                  </Link>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
     </nav>

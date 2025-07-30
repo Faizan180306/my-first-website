@@ -1,4 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
+import toast from "react-hot-toast";
+
+const handleAddToCart = () => {
+  toast.success("📚 Book added to cart!");
+};
+
+const handleRemoveFromCart = () => {
+  toast.error("❌ Book removed from cart!");
+};
+
 
 const CartContext = createContext();
 

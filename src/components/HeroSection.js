@@ -1,4 +1,3 @@
-// Home.jsx (Hero section part)
 import React from "react";
 import Slider from "react-slick";
 import { motion } from "framer-motion";
@@ -12,29 +11,59 @@ const bestSellers = [
   "Railway Group D Complete Study Material",
 ];
 
+const heroSlides = [
+  {
+    image: "https://images.unsplash.com/photo-1609838463884-41e6f3d009f4?w=1200",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1531219432768-e8d62b58b0aa?w=1200",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1606112219348-204d7d8b94ee?w=1200",
+  },
+];
+
 const Hero = () => {
-  const settings = {
+  const bgSettings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     autoplay: true,
-    autoplaySpeed: 2500,
+    autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    fade: true,
     pauseOnHover: false,
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-32 overflow-hidden">
+    <section className="relative h-[90vh] overflow-hidden">
+      {/* Background Image Slider */}
+      <Slider {...bgSettings} className="absolute top-0 left-0 w-full h-full z-0">
+        {heroSlides.map((slide, idx) => (
+          <div key={idx}>
+            <img
+              src={slide.image}
+              alt={`Slide ${idx}`}
+              className="w-full h-[90vh] object-cover"
+            />
+          </div>
+        ))}
+      </Slider>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-60 z-10" />
+
+      {/* Content */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 text-center"
+        className="relative z-20 container mx-auto px-4 text-center pt-24 md:pt-32"
       >
         <motion.h1
-          className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight"
+          className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight text-white"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
@@ -60,9 +89,23 @@ const Hero = () => {
           "पुस्तके म्हणजे ज्ञानाचे भांडार, यशाचा खरा आधार!"
         </motion.p>
 
-        <Slider {...settings} className="max-w-md mx-auto mb-10">
+        {/* Best Sellers Mini Slider */}
+        <Slider
+          {...{
+            dots: false,
+            infinite: true,
+            speed: 500,
+            autoplay: true,
+            autoplaySpeed: 2500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            pauseOnHover: false,
+          }}
+          className="max-w-md mx-auto mb-10 text-white"
+        >
           {bestSellers.map((book, index) => (
-            <div key={index} className="text-white text-xl font-semibold">
+            <div key={index} className="text-xl font-semibold">
               📚 {book}
             </div>
           ))}
@@ -90,12 +133,14 @@ const Hero = () => {
       </motion.div>
 
       {/* Glowing Background Shape */}
-      <div className="absolute w-96 h-96 bg-purple-700 opacity-20 rounded-full blur-3xl top-10 -left-20 animate-pulse"></div>
+      <div className="absolute w-96 h-96 bg-purple-700 opacity-20 rounded-full blur-3xl top-10 -left-20 animate-pulse z-10"></div>
     </section>
   );
 };
 
 export default Hero;
+
+
 
 
 

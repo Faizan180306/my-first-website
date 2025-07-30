@@ -1,5 +1,15 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import toast from "react-hot-toast";
+
+const handleAddToCart = () => {
+  toast.success("📚 Book added to cart!");
+};
+
+const handleRemoveFromCart = () => {
+  toast.error("❌ Book removed from cart!");
+};
+
 
 const Cart = () => {
   const { cartItems, removeFromCart } = useCart();
