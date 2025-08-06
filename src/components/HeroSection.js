@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import Slider from "react-slick";
 import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
@@ -38,7 +38,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-[90vh] overflow-hidden">
+    <section className="relative h-[70vh] overflow-hidden">
       {/* Background Image Slider */}
       <Slider {...bgSettings} className="absolute top-0 left-0 w-full h-full z-0">
         {heroSlides.map((slide, idx) => (
@@ -46,47 +46,47 @@ const Hero = () => {
             <img
               src={slide.image}
               alt={`Slide ${idx}`}
-              className="w-full h-[90vh] object-cover"
+              className="w-full h-[70vh] object-cover"
             />
           </div>
         ))}
       </Slider>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-60 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-orange-900/60 via-red-800/40 to-black/70 z-10" />
 
       {/* Content */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-20 container mx-auto px-4 text-center pt-24 md:pt-32"
+        className="relative z-20 container mx-auto px-4 text-center pt-20 md:pt-24"
       >
         <motion.h1
-          className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight text-white"
+          className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight text-white drop-shadow-lg"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
         >
-          Welcome to <span className="text-yellow-400">Amar Book Centre</span>
+          स्वागत आहे <span className="text-yellow-400">अमर बुक सेंटर</span> मध्ये
         </motion.h1>
 
         <motion.p
-          className="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-white"
+          className="text-lg md:text-xl mb-4 max-w-2xl mx-auto text-yellow-200 font-semibold"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          Find the best study materials for MPSC, UPSC, Banking, Railway, and more.
+          "पुस्तके म्हणजे ज्ञानाचे भांडार, यशाचा खरा आधार!"
         </motion.p>
 
         <motion.p
-          className="italic text-yellow-200 text-base md:text-lg mb-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className="text-base md:text-lg mb-6 max-w-2xl mx-auto text-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          "पुस्तके म्हणजे ज्ञानाचे भांडार, यशाचा खरा आधार!"
+          महाराष्ट्रातील विद्यार्थ्यांसाठी सर्वोत्कृष्ट स्पर्धा परीक्षेचे मार्गदर्शन आणि अभ्यास साहित्य.
         </motion.p>
 
         {/* Best Sellers Mini Slider */}
@@ -102,10 +102,10 @@ const Hero = () => {
             arrows: false,
             pauseOnHover: false,
           }}
-          className="max-w-md mx-auto mb-10 text-white"
+          className="max-w-md mx-auto mb-6 text-white"
         >
           {bestSellers.map((book, index) => (
-            <div key={index} className="text-xl font-semibold">
+            <div key={index} className="text-lg md:text-xl font-semibold">
               📚 {book}
             </div>
           ))}
@@ -119,13 +119,13 @@ const Hero = () => {
         >
           <a
             href="#categories"
-            className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-300 transition duration-300"
+            className="bg-yellow-400 text-black font-semibold px-5 py-2 rounded hover:bg-yellow-300 transition duration-300"
           >
             Explore Books
           </a>
           <a
             href="/featuredbooks"
-            className="border border-yellow-400 text-yellow-400 font-semibold px-6 py-3 rounded hover:bg-yellow-400 hover:text-black transition duration-300"
+            className="border border-yellow-400 text-yellow-400 font-semibold px-5 py-2 rounded hover:bg-yellow-400 hover:text-black transition duration-300"
           >
             Shop Now
           </a>
@@ -133,7 +133,7 @@ const Hero = () => {
       </motion.div>
 
       {/* Glowing Background Shape */}
-      <div className="absolute w-96 h-96 bg-purple-700 opacity-20 rounded-full blur-3xl top-10 -left-20 animate-pulse z-10"></div>
+      <div className="absolute w-72 h-72 bg-orange-600 opacity-30 rounded-full blur-3xl top-10 -left-20 animate-pulse z-10"></div>
     </section>
   );
 };

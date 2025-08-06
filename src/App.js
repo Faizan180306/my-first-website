@@ -1,11 +1,7 @@
-// App.js
-
-
 import { Toaster } from "react-hot-toast";
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import AddBookPage from './pages/AddBookPages';
 
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
@@ -16,31 +12,27 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AllBooks from "./pages/AllBooks";
-import AddBookForm from "./components/AddBookForm";
+import AddBookPage from "./pages/AddBookPages";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-
-
-
+import AskForBookSection from "./components/AskForBookSection";
 
 function App() {
   const [loading, setLoading] = useState(false);
+  const [showAskModal, setShowAskModal] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     setLoading(true);
-    const timeout = setTimeout(() => setLoading(false), 400); // fake delay
+    const timeout = setTimeout(() => setLoading(false), 400);
     return () => clearTimeout(timeout);
   }, [location.pathname]);
 
   return (
     <>
       {loading && <Loader />}
-      <Navbar />
-
-      {/* ✅ Add this line for toast support */}
-      <Toaster position="top-right" reverseOrder={false} />
+      <Navbar onAskClick={() => setShowAskModal(true)} />
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -53,29 +45,31 @@ function App() {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
-
             <Route path="/cart" element={<Cart />} />
             <Route path="/featuredbooks" element={<FeaturedBooks />} />
             <Route path="/allbooks" element={<AllBooks />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-
-
             <Route path="/auth" element={<LoginRegisterPage />} />
-
-            <Route path="*" element={<NotFound />} />
             <Route path="/add-book" element={<AddBookPage />} />
-            <Route path="/add-book" element={<AddBookForm />} />
+            <Route path="/ask" element={<AskForBookSection />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.div>
       </AnimatePresence>
 
+      {/* Show modal only when asked */}
+      {showAskModal && (
+        <AskForBookSection onClose={() => setShowAskModal(false)} />
+      )}
+
       <Footer />
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 }
-export default App;
 
+export default App;
 
 
 

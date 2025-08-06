@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import cors from 'cors'; // ✅ CORS import
 import bookRoutes from './routes/bookRoutes.js';
 import authRoutes from "./routes/authRoutes.js";
+import requestRoutes from './routes/requestRoutes.js';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors()); // ✅ Enable CORS before routes
 app.use(express.json());
 
 app.use("/api", authRoutes);
+app.use('/api', requestRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {

@@ -5,7 +5,16 @@ import { FiMenu, FiX, FiShoppingCart, FiSearch, FiUser } from "react-icons/fi";
 
 
 
+
+
+
+
+
 const Navbar = () => {
+
+
+
+
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const menuRef = useRef(null);
@@ -17,6 +26,9 @@ const Navbar = () => {
   };
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -87,41 +99,44 @@ const Navbar = () => {
           </div>
 
           {/* Ask for Book Button */}
-          <Link
-            to="/ask-book"
-            className="px-4 py-1.5 bg-yellow-400 text-black rounded hover:bg-yellow-500 transition font-semibold"
-          >
-            Ask for Book
+
+          <Link to="/ask">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+              Ask for Book
+            </button>
           </Link>
+
+
+
 
           {/* Profile Dropdown */}
           <div className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className="text-white hover:text-yellow-400 transition duration-200"
-      >
-        <FiUser className="text-2xl" />
-      </button>
+            <button
+              onClick={() => setOpen(!open)}
+              className="text-white hover:text-yellow-400 transition duration-200"
+            >
+              <FiUser className="text-2xl" />
+            </button>
 
-      {open && (
-        <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg z-50">
-          <Link
-            to="/auth"
-            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition"
-            onClick={() => setOpen(false)}
-          >
-            Login
-          </Link>
-          <Link
-            to="/auth"
-            className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition"
-            onClick={() => setOpen(false)}
-          >
-            Register
-          </Link>
-        </div>
-      )}
-    </div>
+            {open && (
+              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg z-50">
+                <Link
+                  to="/auth"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition"
+                  onClick={() => setOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/auth"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition"
+                  onClick={() => setOpen(false)}
+                >
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
 
           {/* Search */}
           <div className="relative">
@@ -156,7 +171,7 @@ const Navbar = () => {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <Link to="/featuredbooks" onClick={closeMenu}>FeaturedBooks</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
-          <Link to="/ask-book" onClick={closeMenu}>Ask for Book</Link>
+        }
           <Link to="/profile" onClick={closeMenu}>My Profile</Link>
           <Link to="/orders" onClick={closeMenu}>My Orders</Link>
           <Link to="/logout" onClick={closeMenu}>Logout</Link>
@@ -187,6 +202,9 @@ const Navbar = () => {
           </AnimatePresence>
         </div>
       )}
+
+     
+
     </nav>
   );
 };

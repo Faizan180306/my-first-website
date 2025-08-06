@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Categories from "./Categories";
 import FeaturedBooks from "./FeaturedBooks";
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
 
 
 
@@ -13,11 +13,11 @@ const Home = () => {
   const [filterCategory, setFilterCategory] = useState('All');
 
   useEffect(() => {
-  fetch("http://localhost:5000/api/books")
-    .then((res) => res.json())
-    .then((data) => setBooks(data))
-    .catch((err) => console.error("Failed to load books:", err));
-}, []);
+    fetch("http://localhost:5000/api/books")
+      .then((res) => res.json())
+      .then((data) => setBooks(data))
+      .catch((err) => console.error("Failed to load books:", err));
+  }, []);
 
   const bestsellers = [
     "MPSC Rajyaseva Guide",
@@ -39,39 +39,44 @@ const Home = () => {
   return (
     <div>
 
-      {/* ✨ Enhanced Hero Section with Marathi slogan and animation */}
-      <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-32 overflow-hidden">
+      {/* ✨ Enhanced Hero Section with Marathi slogan and Indigo/Purple gradient */}
+      <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-24 overflow-hidden">
+        {/* Decorative elements */}
         <div className="absolute top-10 left-10 w-32 h-32 bg-purple-500 rounded-full opacity-30 blur-2xl animate-pulse"></div>
         <div className="absolute bottom-0 right-10 w-40 h-40 bg-yellow-400 rounded-full opacity-20 blur-2xl animate-ping"></div>
 
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center relative z-10">
+          {/* Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
             className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight"
           >
             Welcome to <span className="text-yellow-400">Amar Book Centre</span>
           </motion.h1>
 
+          {/* Subheading */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.4 }}
             className="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-white"
           >
             Find the best study materials for MPSC, UPSC, Banking, Railway, and more.
           </motion.p>
 
+          {/* Marathi Slogan */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            transition={{ delay: 0.6 }}
             className="italic text-yellow-200 text-base md:text-lg mb-8"
           >
             "पुस्तके म्हणजे ज्ञानाचे भांडार, यशाचा खरा आधार!"
           </motion.p>
 
+          {/* Scrolling Bestsellers */}
           <motion.div
             className="text-sm md:text-base text-yellow-300 font-mono mb-6"
             initial={{ x: "100%" }}
@@ -85,29 +90,41 @@ const Home = () => {
             </span>
           </motion.div>
 
+          {/* Buttons */}
           <motion.div
             className="flex justify-center space-x-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
+            transition={{ delay: 1 }}
           >
             <a
               href="#categories"
-              className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-300 transition duration-300"
+              className="bg-yellow-400 text-black font-semibold px-6 py-3 rounded hover:bg-yellow-300 transition duration-300 hover:shadow-lg hover:scale-105"
             >
               Explore Books
             </a>
             <Link
               to="/featuredbooks"
-              className="border border-yellow-400 text-yellow-400 font-semibold px-6 py-3 rounded hover:bg-yellow-400 hover:text-black transition duration-300"
+              className="border border-yellow-400 text-yellow-400 font-semibold px-6 py-3 rounded hover:bg-yellow-400 hover:text-black transition duration-300 hover:shadow-lg hover:scale-105"
             >
               Shop Now
             </Link>
           </motion.div>
         </div>
+
+        {/* Scroll Down Indicator */}
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-yellow-300 text-2xl"
+        >
+          ↓
+        </motion.div>
       </section>
 
-    
+
+
+
 
       {/* 🔍 Search and Category Filters */}
       <div className="max-w-5xl mx-auto px-4 py-8">
@@ -124,11 +141,10 @@ const Home = () => {
             <button
               key={cat}
               onClick={() => setFilterCategory(cat)}
-              className={`px-4 py-2 rounded-xl border transition ${
-                filterCategory === cat
-                  ? "bg-blue-600 text-white"
-                  : "bg-white text-black hover:bg-blue-100"
-              }`}
+              className={`px-4 py-2 rounded-xl border transition ${filterCategory === cat
+                ? "bg-blue-600 text-white"
+                : "bg-white text-black hover:bg-blue-100"
+                }`}
             >
               {cat}
             </button>
