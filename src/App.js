@@ -17,6 +17,7 @@ import LoginRegisterPage from "./pages/LoginRegisterPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AskForBookSection from "./components/AskForBookSection";
+import BottomNav from './components/BottomNav';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -31,41 +32,44 @@ function App() {
 
   return (
     <>
-      {loading && <Loader />}
-      <Navbar onAskClick={() => setShowAskModal(true)} />
+  {loading && <Loader />}
+  <Navbar onAskClick={() => setShowAskModal(true)} />
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={location.pathname}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/featuredbooks" element={<FeaturedBooks />} />
-            <Route path="/allbooks" element={<AllBooks />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/auth" element={<LoginRegisterPage />} />
-            <Route path="/add-book" element={<AddBookPage />} />
-            <Route path="/ask" element={<AskForBookSection />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </motion.div>
-      </AnimatePresence>
+  <AnimatePresence mode="wait">
+    <motion.div
+      key={location.pathname}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/featuredbooks" element={<FeaturedBooks />} />
+        <Route path="/allbooks" element={<AllBooks />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/auth" element={<LoginRegisterPage />} />
+        <Route path="/add-book" element={<AddBookPage />} />
+        <Route path="/ask" element={<AskForBookSection />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </motion.div>
+  </AnimatePresence>
 
-      {/* Show modal only when asked */}
-      {showAskModal && (
-        <AskForBookSection onClose={() => setShowAskModal(false)} />
-      )}
+  {showAskModal && (
+    <AskForBookSection onClose={() => setShowAskModal(false)} />
+  )}
 
-      <Footer />
-      <Toaster position="top-right" reverseOrder={false} />
-    </>
+  <Footer />
+
+  {/* ✅ Add BottomNav here */}
+  <BottomNav />
+
+  <Toaster position="top-right" reverseOrder={false} />
+</>
   );
 }
 

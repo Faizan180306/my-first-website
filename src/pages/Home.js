@@ -40,7 +40,8 @@ const Home = () => {
     <div>
 
       {/* ✨ Enhanced Hero Section with Marathi slogan and Indigo/Purple gradient */}
-      <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-24 overflow-hidden">
+     <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-20 md:py-24 h-[70vh] md:h-auto overflow-hidden">
+
         {/* Decorative elements */}
         <div className="absolute top-10 left-10 w-32 h-32 bg-purple-500 rounded-full opacity-30 blur-2xl animate-pulse"></div>
         <div className="absolute bottom-0 right-10 w-40 h-40 bg-yellow-400 rounded-full opacity-20 blur-2xl animate-ping"></div>

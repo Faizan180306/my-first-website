@@ -171,13 +171,24 @@ const Navbar = () => {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <Link to="/featuredbooks" onClick={closeMenu}>FeaturedBooks</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
-        }
-          <Link to="/profile" onClick={closeMenu}>My Profile</Link>
-          <Link to="/orders" onClick={closeMenu}>My Orders</Link>
-          <Link to="/logout" onClick={closeMenu}>Logout</Link>
-          <Link to="/cart" onClick={closeMenu}>Cart</Link>
-          <button onClick={toggleDropdown}>Categories ▾</button>
 
+          {/* Ask for Book */}
+          <Link
+            to="/ask"
+            className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
+            onClick={closeMenu}
+          >
+            Ask for Book
+          </Link>
+
+          {/* Profile Dropdown (Mobile version as flat links) */}
+          <Link to="/auth" onClick={closeMenu}>Login</Link>
+          <Link to="/auth" onClick={closeMenu}>Register</Link>
+
+          <Link to="/cart" onClick={closeMenu}>Cart</Link>
+
+          {/* Categories Dropdown */}
+          <button onClick={toggleDropdown}>Categories ▾</button>
           <AnimatePresence>
             {dropdownOpen && (
               <motion.div
@@ -203,7 +214,8 @@ const Navbar = () => {
         </div>
       )}
 
-     
+
+
 
     </nav>
   );
