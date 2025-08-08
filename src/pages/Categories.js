@@ -36,23 +36,28 @@ const categories = [
     count: "900+",
     image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=300&fit=crop",
   },
-  {
-    id: 6,
-    title: "Police Bharti",
-    description: "Police recruitment exam study materials",
-    count: "400+",
-    image: "https://images.unsplash.com/photo-1603575448360-9b9c7cf0d3b0?w=400&h=300&fit=crop",
-  },
+
+{
+  id: 6,
+  title: "Police Bharti",
+  description: "Police recruitment exam study materials",
+  count: "400+",
+  image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&h=300&fit=crop",
+},
+
+
+
+
 ];
 
 const Categories = () => {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gradient-to-br from-gray-100 via-white to-gray-100">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900">
-          Explore Book Categories
+        <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
+          📚 Explore Book Categories
         </h2>
-        <p className="text-center text-gray-600 mb-12">
+        <p className="text-center text-gray-600 mb-12 text-lg">
           Find the perfect study materials for your competitive exam preparation
         </p>
 
@@ -60,21 +65,25 @@ const Categories = () => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border border-transparent hover:border-blue-500"
+              className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-200 hover:border-blue-400"
             >
               <div className="relative">
                 <img
                   src={category.image}
                   alt={category.title}
-                  className="rounded-t-xl w-full h-48 object-cover"
+                  className="rounded-t-2xl w-full h-48 object-cover"
                 />
-                <span className="absolute top-3 right-3 bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md">
+                <span className="absolute top-3 right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
                   {category.count}
                 </span>
               </div>
               <div className="p-5">
-                <h3 className="text-xl font-semibold text-gray-900">{category.title}</h3>
-                <p className="mt-2 text-gray-600 text-sm">{category.description}</p>
+                <h3 className="text-xl font-semibold text-gray-800">
+                  {category.title}
+                </h3>
+                <p className="mt-2 text-gray-600 text-sm leading-relaxed">
+                  {category.description}
+                </p>
               </div>
             </div>
           ))}
