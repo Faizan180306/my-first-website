@@ -40,7 +40,8 @@ const Home = () => {
     <div>
 
       {/* ✨ Enhanced Hero Section with Marathi slogan and Indigo/Purple gradient */}
-     <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-20 md:py-24 h-[67vh] md:h-auto overflow-hidden">
+     <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-16 md:py-24 h-[50vh] md:h-auto overflow-hidden">
+
 
         {/* Decorative elements */}
         <div className="absolute top-10 left-10 w-32 h-32 bg-purple-500 rounded-full opacity-30 blur-2xl animate-pulse"></div>
@@ -52,7 +53,8 @@ const Home = () => {
             initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 leading-tight"
+
           >
             Welcome to <span className="text-yellow-400">Amar Book Centre</span>
           </motion.h1>

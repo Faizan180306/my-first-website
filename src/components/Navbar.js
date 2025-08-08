@@ -1,69 +1,59 @@
-import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { FiMenu, FiX, FiShoppingCart, FiSearch, FiUser } from "react-icons/fi";
-import logo from "../assets/logo.png"; // Adjust path based on your file structure
-
-
-
-
-
-
-
-
-
+import {
+  FiMenu,
+  FiX,
+  FiShoppingCart,
+  FiSearch,
+  FiUser,
+} from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
-
-
-
-
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
   const menuRef = useRef(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => {
     setIsOpen(false);
     setDropdownOpen(false);
+    setProfileOpen(false);
   };
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-
-
-
+  const toggleProfileDropdown = () => setProfileOpen(!profileOpen);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) closeMenu();
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        closeMenu();
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const [open, setOpen] = useState(false);
-
   return (
     <nav
-      className="bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white shadow-md fixed w-full z-50"
       ref={menuRef}
+      className="bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white shadow-md fixed w-full z-50"
     >
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-            <img
-    src={logo}
-    alt="Amar Read Logo"
-    className="h-10 w-auto mr-2"
-  />
-  <span className="text-xl font-bold text-white">Amar Read</span>
+          <img src={logo} alt="Amar Read Logo" className="h-10 w-auto" />
+          <span className="text-xl font-bold">Amar Read</span>
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6">
-          {["Home", "FeaturedBooks", "Contact"].map((item, idx) => (
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-6">
+          {["Home", "FeaturedBooks", "Contact"].map((item) => (
             <Link
-              key={idx}
+              key={item}
               to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
               className="relative group font-medium hover:text-yellow-400 transition"
             >
@@ -73,8 +63,11 @@ const Navbar = () => {
           ))}
 
           {/* Categories Dropdown */}
-          <div className="relative group">
-            <button onClick={toggleDropdown} className="font-medium hover:text-yellow-400 transition">
+          <div className="relative">
+            <button
+              onClick={toggleDropdown}
+              className="font-medium hover:text-yellow-400 transition"
+            >
               Categories ▾
             </button>
             <AnimatePresence>
@@ -86,9 +79,9 @@ const Navbar = () => {
                   transition={{ duration: 0.2 }}
                   className="absolute mt-2 bg-white text-black rounded-md shadow-lg w-48 z-50"
                 >
-                  {["MPSC", "UPSC", "Novels", "Children"].map((cat, idx) => (
+                  {["MPSC", "UPSC", "Novels", "Children"].map((cat) => (
                     <Link
-                      key={idx}
+                      key={cat}
                       to={`/categories/${cat.toLowerCase()}`}
                       className="block px-4 py-2 hover:bg-gray-200"
                       onClick={closeMenu}
@@ -101,39 +94,34 @@ const Navbar = () => {
             </AnimatePresence>
           </div>
 
-          {/* Ask for Book Button */}
-
+          {/* Ask for Book */}
           <Link to="/ask">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <button className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">
               Ask for Book
             </button>
           </Link>
 
-
-
-
-          {/* Profile Dropdown */}
+          {/* Profile */}
           <div className="relative">
             <button
-              onClick={() => setOpen(!open)}
-              className="text-white hover:text-yellow-400 transition duration-200"
+              onClick={toggleProfileDropdown}
+              className="hover:text-yellow-400 transition"
             >
               <FiUser className="text-2xl" />
             </button>
-
-            {open && (
-              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg z-50">
+            {profileOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white text-gray-700 shadow-lg rounded z-50">
                 <Link
                   to="/auth"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition"
-                  onClick={() => setOpen(false)}
+                  className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={closeMenu}
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition"
-                  onClick={() => setOpen(false)}
+                  className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={closeMenu}
                 >
                   Register
                 </Link>
@@ -160,7 +148,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Toggle Button */}
         <div className="md:hidden">
           <button onClick={toggleMenu}>
             {isOpen ? <FiX className="text-2xl" /> : <FiMenu className="text-2xl" />}
@@ -170,27 +158,17 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="bg-indigo-950 md:hidden flex flex-col items-center text-white space-y-3 pb-4 animate-slideDown">
+        <motion.div
+          initial={{ height: 0 }}
+          animate={{ height: "auto" }}
+          exit={{ height: 0 }}
+          transition={{ duration: 0.2 }}
+          className="md:hidden flex flex-col items-center bg-indigo-950 text-white px-4 py-4 space-y-4"
+        >
           <Link to="/" onClick={closeMenu}>Home</Link>
           <Link to="/featuredbooks" onClick={closeMenu}>FeaturedBooks</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
 
-          {/* Ask for Book */}
-          <Link
-            to="/ask"
-            className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
-            onClick={closeMenu}
-          >
-            Ask for Book
-          </Link>
-
-          {/* Profile Dropdown (Mobile version as flat links) */}
-          <Link to="/auth" onClick={closeMenu}>Login</Link>
-          <Link to="/auth" onClick={closeMenu}>Register</Link>
-
-          <Link to="/cart" onClick={closeMenu}>Cart</Link>
-
-          {/* Categories Dropdown */}
           <button onClick={toggleDropdown}>Categories ▾</button>
           <AnimatePresence>
             {dropdownOpen && (
@@ -199,13 +177,13 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
                 transition={{ duration: 0.2 }}
-                className="flex flex-col text-black w-40 bg-white rounded shadow-md z-50"
+                className="w-full text-black bg-white rounded shadow-md"
               >
-                {["MPSC", "UPSC", "Novels", "Children"].map((cat, idx) => (
+                {["MPSC", "UPSC", "Novels", "Children"].map((cat) => (
                   <Link
-                    key={idx}
+                    key={cat}
                     to={`/categories/${cat.toLowerCase()}`}
-                    className="px-4 py-2 hover:bg-gray-200"
+                    className="block px-4 py-2 hover:bg-gray-200"
                     onClick={closeMenu}
                   >
                     {cat} Books
@@ -214,12 +192,20 @@ const Navbar = () => {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+
+          <Link
+            to="/ask"
+            className="bg-blue-600 px-4 py-2 rounded text-white hover:bg-blue-700"
+            onClick={closeMenu}
+          >
+            Ask for Book
+          </Link>
+
+          <Link to="/auth" onClick={closeMenu}>Login</Link>
+          <Link to="/auth" onClick={closeMenu}>Register</Link>
+          <Link to="/cart" onClick={closeMenu}>Cart</Link>
+        </motion.div>
       )}
-
-
-
-
     </nav>
   );
 };
