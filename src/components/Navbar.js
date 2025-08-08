@@ -2,6 +2,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FiMenu, FiX, FiShoppingCart, FiSearch, FiUser } from "react-icons/fi";
+import logo from "../assets/logo.png"; // Adjust path based on your file structure
+
+
 
 
 
@@ -47,13 +50,13 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
-          <img
-            src="/logo.png"
-            alt="Amar Book Centre Logo"
-            className="h-10 w-auto object-contain"
-          />
-          <span className="text-xl font-bold text-white">Amar Book Centre</span>
+        <Link to="/" className="flex items-center gap-2">
+            <img
+    src={logo}
+    alt="Amar Read Logo"
+    className="h-10 w-auto mr-2"
+  />
+  <span className="text-xl font-bold text-white">Amar Read</span>
         </Link>
 
         {/* Desktop Menu */}

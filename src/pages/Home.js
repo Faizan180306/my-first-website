@@ -40,7 +40,7 @@ const Home = () => {
     <div>
 
       {/* ✨ Enhanced Hero Section with Marathi slogan and Indigo/Purple gradient */}
-     <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-20 md:py-24 h-[70vh] md:h-auto overflow-hidden">
+     <section className="relative bg-gradient-to-br from-indigo-900 via-purple-800 to-indigo-900 text-white py-20 md:py-24 h-[67vh] md:h-auto overflow-hidden">
 
         {/* Decorative elements */}
         <div className="absolute top-10 left-10 w-32 h-32 bg-purple-500 rounded-full opacity-30 blur-2xl animate-pulse"></div>
@@ -198,7 +198,7 @@ const Home = () => {
         href="https://wa.me/9359176071"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-5 right-5 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-transform transform hover:scale-110"
+        className="fixed bottom-20 right-5 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-transform transform hover:scale-110"
         title="Chat on WhatsApp"
       >
         <svg
